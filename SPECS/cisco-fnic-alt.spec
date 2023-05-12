@@ -7,12 +7,12 @@
 
 Summary: %{vendor_name} %{driver_name} device drivers
 Name: %{vendor_label}-%{driver_name}-alt
-Version: 2.0.0.85
+Version: 2.0.0.89
 Release: 1%{?dist}
 License: GPL
 
 # Extracted from latest XS driver disk
-Source0: cisco-fnic-2.0.0.85.tar.gz
+Source0: cisco-fnic-2.0.0.89.tar.gz
 
 BuildRequires: gcc
 BuildRequires: kernel-devel
@@ -26,7 +26,7 @@ Requires(postun): /usr/sbin/depmod
 version %{kernel_version}.
 
 %prep
-%autosetup -p1 -n cisco-fnic-%{version}
+%autosetup -p1 -n %{vendor_label}-%{driver_name}-%{version}
 
 %build
 %{make_build} -C /lib/modules/%{kernel_version}/build M=$(pwd) KSRC=/lib/modules/%{kernel_version}/build modules
@@ -52,5 +52,8 @@ find %{buildroot}/lib/modules/%{kernel_version} -name "*.ko" -type f | xargs chm
 /lib/modules/%{kernel_version}/*/*.ko
 
 %changelog
+* Fri May 12 2023 Gael Duperrey <gduperrey@vates.fr> - 2.0.0.89-1
+- Update to version 2.0.0.89
+
 * Mon Nov 28 2022 Gael Duperrey <gduperrey@vates.fr> - 2.0.0.85-1
 - initial package, version 2.0.0.85
