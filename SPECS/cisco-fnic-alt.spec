@@ -13,6 +13,7 @@ License: GPL
 
 # Extracted from latest XS driver disk
 Source0: cisco-fnic-2.0.0.90.tar.gz
+Patch0: xcpng8-configure.patch
 
 BuildRequires: gcc
 BuildRequires: kernel-devel
