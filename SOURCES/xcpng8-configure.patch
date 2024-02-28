@@ -1,0 +1,25 @@
+Add support for XCP-ng distribution detection in configure script
+
+diff --git a/configure b/configure
+index 8742e71..5f42907
+--- a/configure
++++ b/configure
+@@ -3335,6 +3335,18 @@ $as_echo_n "checking Linux distribution... " >&6; }
+                 LINUX_DISTRO_DISK="centos$RHEL_MAJOR"
+                 LINUX_HEADER_DIR=/usr/src/kernels/$KNAME
+                 DISTRO_VER=${LINUX_DISTRO}${RHEL_MAJOR}u${RHEL_MINOR}
++
++            elif test -n "`echo $OUT | grep XCP-ng`"; then
++                RHEL_VER=`echo $OUT | cut -d\  -f$centos_field`
++                RHEL_MAJOR=`echo $RHEL_VER | cut -d. -f1`
++                RHEL_MINOR=`echo $RHEL_VER | cut -d. -f2`
++
++                RPM_BUILD_PKG=redhat-rpm-config
++
++                LINUX_DISTRO=xcpng
++                LINUX_DISTRO_DISK="xcpng$RHEL_MAJOR"
++                LINUX_HEADER_DIR=/usr/src/kernels/$KNAME
++                DISTRO_VER=${LINUX_DISTRO}${RHEL_MAJOR}u${RHEL_MINOR}
+             fi
+         fi
+     fi

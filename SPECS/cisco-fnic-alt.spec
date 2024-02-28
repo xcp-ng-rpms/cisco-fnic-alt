@@ -7,12 +7,13 @@
 
 Summary: %{vendor_name} %{driver_name} device drivers
 Name: %{vendor_label}-%{driver_name}-alt
-Version: 2.0.0.89
+Version: 2.0.0.90
 Release: 1%{?dist}
 License: GPL
 
 # Extracted from latest XS driver disk
-Source0: cisco-fnic-2.0.0.89.tar.gz
+Source0: cisco-fnic-2.0.0.90.tar.gz
+Patch0: xcpng8-configure.patch
 
 BuildRequires: gcc
 BuildRequires: kernel-devel
@@ -29,6 +30,10 @@ version %{kernel_version}.
 %autosetup -p1 -n %{vendor_label}-%{driver_name}-%{version}
 
 %build
+chmod +x configure
+chmod +x version.sh
+export KNAME=%{kernel_version}
+./configure
 %{make_build} -C /lib/modules/%{kernel_version}/build M=$(pwd) KSRC=/lib/modules/%{kernel_version}/build modules
 
 %install
@@ -52,6 +57,10 @@ find %{buildroot}/lib/modules/%{kernel_version} -name "*.ko" -type f | xargs chm
 /lib/modules/%{kernel_version}/*/*.ko
 
 %changelog
+* Wed Feb 28 2024 Gael Duperrey <gduperrey@vates.fr> - 2.0.0.90-1
+- Update to version 2.0.0.90
+- Synced from XS driver SRPM cisco-fnic-2.0.0.90-1.xs8~2_1.src.rpm
+
 * Fri May 12 2023 Gael Duperrey <gduperrey@vates.fr> - 2.0.0.89-1
 - Update to version 2.0.0.89
 
